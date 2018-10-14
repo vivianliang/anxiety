@@ -7,5 +7,5 @@ class Anxiety(models.Model):
     fear = models.TextField(max_length=2048)
     action = models.TextField(max_length=2048)
 
-    created = models.DateTimeField()
-    updated = models.DateTimeField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
