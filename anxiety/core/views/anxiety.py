@@ -17,3 +17,16 @@ class AnxietyView(APIView):
         except Anxiety.DoesNotExist:
             raise Exception('invalid anxiety id')
         return Response(AnxietySerializer(anxiety).data)
+
+    def put(self, request, anxiety_id, *args, **kwargs):
+        '''Replace an existing Anxiety.'''
+        try:
+            anxiety = Anxiety.objects.get(id=anxiety_id)
+        except Anxiety.DoesNotExist:
+            raise Exception('invalid anxiety id')
+
+        anxiety.fear = request.GET.get('fear')
+        anxiety.action = request.GET.get('action')
+        anxiety.save()
+
+        return Response(AnxietySerializer(anxiety).data)

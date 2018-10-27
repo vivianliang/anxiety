@@ -6,11 +6,10 @@ from core.models import Anxiety
 class AnxietiesView(APIView):
 
     def get(self, request, *args, **kwargs):
-        '''Get Anxieties.'''
-        # TODO
-        # print 'get', request
-        # anxiety = Anxiety.objects.get(id=request.GET.get('anxiety_id'))
-        return Response({})
+        '''Get Anxieties for the request user.'''
+        anxieties = Anxiety.objects.filter(user_id=request.user.id)
+        serialized_anxieties = AnxietySerializer(anxieties, many=True).data
+        return Response(serialized_anxieties)
 
     def post(self, request, *args, **kwargs):
         '''Create an anxiety.'''
