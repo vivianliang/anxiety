@@ -11,22 +11,22 @@ from core.serializers import AnxietySerializer
 class AnxietyView(APIView):
 
     def get(self, request, anxiety_id, *args, **kwargs):
-        '''Get Anxieties.'''
+        '''Get anxieties.'''
         try:
-            anxiety = Anxiety.objects.get(id=request.GET.get('anxiety_id'))
+            anxiety = Anxiety.objects.get(id=anxiety_id)
         except Anxiety.DoesNotExist:
             raise Exception('invalid anxiety id')
         return Response(AnxietySerializer(anxiety).data)
 
     def put(self, request, anxiety_id, *args, **kwargs):
-        '''Replace an existing Anxiety.'''
+        '''Edit an existing anxiety.'''
         try:
             anxiety = Anxiety.objects.get(id=anxiety_id)
         except Anxiety.DoesNotExist:
             raise Exception('invalid anxiety id')
 
-        anxiety.fear = request.GET.get('fear')
-        anxiety.action = request.GET.get('action')
+        anxiety.fear = request.data.get('fear')
+        anxiety.action = request.data.get('action')
         anxiety.save()
 
         return Response(AnxietySerializer(anxiety).data)

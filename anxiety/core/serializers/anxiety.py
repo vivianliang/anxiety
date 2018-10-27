@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 class AnxietySerializer(serializers.Serializer):
     id = serializers.IntegerField()
-    user_id = serializers.IntegerField(source='anxiety.user.id')
+    user_id = serializers.IntegerField(source='user.id')
     fear = serializers.CharField()
     action = serializers.CharField()
     created = serializers.DateTimeField()
